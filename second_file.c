@@ -17,3 +17,21 @@ char *my_memset(char *memory, char value, unsigned int size)
 
 	return (memory);
 }
+
+/**
+ * string_free - Deallocates a string array.
+ *
+ * @strings: The array of strings to be deallocated.
+ */
+void string_free(char **strings)
+{
+	char **temp = strings;
+
+	if (!strings)
+		return;
+
+	while (*strings)
+		free(*strings++);
+
+	free(temp);
+}
