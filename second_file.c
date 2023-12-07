@@ -35,3 +35,37 @@ void string_free(char **strings)
 
 	free(temp);
 }
+
+
+/**
+ * memory_resize - Resizes a block of memory.
+ *
+ * @ptr: Pointer to the previous block.
+ * @old_size: Original size of the block.
+ * @new_size: New size of the block.
+ * Return: A pointer to the resized block.
+ */
+void *memory_resize(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *new_block;
+
+	if (!ptr)
+		return (malloc(new_size));
+
+	if (!new_size)
+		return (free(ptr), NULL);
+
+	if (new_size == old_size)
+		return (ptr);
+
+	new_block = malloc(new_size);
+	if (!new_block)
+		return (NULL);
+
+	old_size = old_size < new_size ? old_size : new_size;
+	while (old_size--)
+		new_block[old_size] = ((char *)ptr)[old_size];
+
+	free(ptr);
+	return (new_block);
+}
