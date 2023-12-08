@@ -82,3 +82,24 @@ void split_and_store(char **substrings, char *str, char delim)
 	substrings[j] = NULL;
 }
 
+/**
+ * substring_copy - Copies a substring from a string
+ * @start: The starting point of the substring
+ * @length: The length of the substring
+ *
+ * Return: A newly allocated string containing the substring
+ */
+char *substring_copy(char *start, int length)
+{
+	char *substring = malloc((length + 1) * sizeof(char));
+
+	if (!substring)
+		return (NULL);
+
+	for (int i = 0; i < length; i++)
+		substring[i] = start[i];
+
+	substring[length] = '\0';
+	return (substring);
+}
+
