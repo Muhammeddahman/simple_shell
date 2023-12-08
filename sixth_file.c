@@ -24,3 +24,28 @@ char **custom_split_string(char *str, char delim)
 	return (substrings);
 }
 
+/**
+ * count_substrings - Counts the number of substrings in a string
+ * @str: The input string
+ * @delim: The delimiter used for counting
+ *
+ * Return: The number of substrings
+ */
+int count_substrings(char *str, char delim)
+{
+	int count = 0;
+	int i;
+
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] == delim)
+		{
+			count++;
+			while (str[i + 1] == delim)
+				i++; /* Skip consecutive delimiters */
+		}
+	}
+
+	return (count + 1); /* Add 1 for the last substring */
+}
+
