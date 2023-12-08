@@ -25,3 +25,16 @@ int isDelimiter(char c, char *delimiter)
 	return (0);
 }
 
+/**
+ * isAlphabetic - Checks for alphabetic character
+ * @c: The character to check
+ * Return: 1 if c is alphabetic, 0 otherwise
+ */
+int isAlphabetic(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
