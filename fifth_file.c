@@ -61,3 +61,20 @@ char *custom_concatenate_n_strings(char *dest, char *src, int n)
 	return (result);
 }
 
+/**
+ * custom_find_character - Locates a character in a string.
+ *
+ * @s: The string to be parsed.
+ * @c: The character to look for.
+ * Return: A pointer to the first occurrence of the character in the string
+ *				, or NULL if not found.
+ */
+char *custom_find_character(char *s, char c)
+{
+	do {
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
+
+	return (NULL);
+}
