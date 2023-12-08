@@ -64,3 +64,26 @@ void custom_print_string(char *str)
 		index++;
 	}
 }
+
+
+/**
+ * custom_putchar - Writes a character to stdout.
+ * @c: The character to print.
+ *
+ * Return: On success, 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int custom_putchar(char c)
+{
+	static int index;
+	static char buffer[WRITE_BUF_SIZE];
+
+	if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
+	{
+		write(1, buffer, index);
+		index = 0;
+	}
+	if (c != BUF_FLUSH)
+		buffer[index++] = c;
+	return (1);
+}
