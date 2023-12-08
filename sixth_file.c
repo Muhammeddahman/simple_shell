@@ -49,3 +49,36 @@ int count_substrings(char *str, char delim)
 	return (count + 1); /* Add 1 for the last substring */
 }
 
+/**
+ * split_and_store - Splits a string and stores substrings in an array
+ * @substrings: The array to store the substrings
+ * @str: The input string to be split
+ * @delim: The delimiter used for splitting
+ */
+void split_and_store(char **substrings, char *str, char delim)
+{
+	int i, j, k;
+
+	for (i = 0, j = 0; str[i] != '\0'; i++)
+	{
+		while (str[i] == delim)
+			i++;
+
+		k = 0;
+		while (str[i + k] != delim && str[i + k] != '\0')
+			k++;
+
+		substrings[j] = substring_copy(str + i, k);
+		if (!substrings[j])
+		{
+			free_substrings(substrings, j);
+			return;
+		}
+
+		i += k;
+		j++;
+	}
+
+	substrings[j] = NULL;
+}
+
