@@ -42,3 +42,45 @@ char *duplicateCharacters(char *pathStr, int start, int stop)
 	return (buffer);
 }
 
+/**
+ * findCmdInPath - Finds the specified command in the PATH string
+ * @info: Pointer to the info struct
+ * @pathStr: The PATH string
+ * @cmd: The command to find
+ *
+ * Return: Full path of the command if found, or NULL
+ */
+char *findCmdInPath(info_t *info, char *pathStr, char *cmd)
+{
+	int i = 0, currPos = 0;
+	char *path;
+
+	if (!pathStr)
+		return (NULL);
+	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
+	{
+		if (isExecutableCommand(info, cmd))
+			return (cmd);
+	}
+	while (1)
+	{
+		if (!pathStr[i] || pathStr[i] == ':')
+		{
+			path = duplicateCharacters(pathStr, currPos, i);
+			if (!*path)
+				_strcat(path, cmd);
+			else
+			{
+				_strcat(path, "/");
+				_strcat(path, cmd);
+			}
+			if (isExecutableCommand(info, path))
+				return (path);
+			if (!pathStr[i])
+				break;
+			currPos = i;
+		}
+		i++;
+	}
+	return (NULL);
+}
