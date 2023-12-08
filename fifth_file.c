@@ -44,3 +44,23 @@ char *custom_duplicate_string(const char *str)
 		result[length] = *--str;
 	return (result);
 }
+
+
+/**
+ * custom_print_string - Prints a string to stdout.
+ * @str: The string to be printed.
+ *
+ * Return: Nothing.
+ */
+void custom_print_string(char *str)
+{
+	int index = 0;
+
+	if (!str)
+		return;
+	while (str[index] != '\0')
+	{
+		custom_putchar(str[index]);
+		index++;
+	}
+}
