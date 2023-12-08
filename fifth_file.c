@@ -32,3 +32,32 @@ char *custom_copy_n_string(char *destination, char *source, int n)
 	return (result);
 }
 
+/**
+ * custom_concatenate_n_strings - Concatenates two strings
+ *			with a limit on the number of characters.
+ *
+ * @dest: The first string.
+ * @src: The second string.
+ * @n: The maximum number of bytes to be used.
+ * Return: The concatenated string.
+ */
+char *custom_concatenate_n_strings(char *dest, char *src, int n)
+{
+	int i, j;
+	char *result = dest;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	if (j < n)
+		dest[i] = '\0';
+	return (result);
+}
+
