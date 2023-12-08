@@ -21,3 +21,26 @@ char *custom_copy_string(char *destination, char *source)
 	destination[index] = '\0';
 	return (destination);
 }
+
+/**
+ * custom_duplicate_string - Duplicates a given string.
+ *
+ * @str: The string to duplicate.
+ * Return: Pointer to the duplicated string.
+ */
+char *custom_duplicate_string(const char *str)
+{
+	int length = 0;
+	char *result;
+
+	if (str == NULL)
+		return (NULL);
+	while (*str++)
+		length++;
+	result = malloc(sizeof(char) * (length + 1));
+	if (!result)
+		return (NULL);
+	for (length++; length--;)
+		result[length] = *--str;
+	return (result);
+}
