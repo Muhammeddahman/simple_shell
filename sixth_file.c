@@ -103,3 +103,16 @@ char *substring_copy(char *start, int length)
 	return (substring);
 }
 
+
+/**
+ * free_substrings - Frees the memory allocated for an array of strings
+ * @substrings: The array of strings to free
+ * @count: The number of strings in the array
+ */
+void free_substrings(char **substrings, int count)
+{
+	for (int i = 0; i < count; i++)
+		free(substrings[i]);
+
+	free(substrings);
+}
