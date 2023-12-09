@@ -82,3 +82,33 @@ list_t *appendNode(list_t **head, const char *data, int index)
 		*head = newNode;
 
 	return (newNode);
+}
+
+/**
+ * printListData - Prints only the data element of a list_t linked list
+ * @firstNode: Pointer to the first node
+ *
+ * Return: Size of the list
+ */
+size_t printListData(const list_t *firstNode)
+{
+	size_t count = 0;
+
+	while (firstNode)
+	{
+		_puts(firstNode->data ? firstNode->data : "(nil)");
+		_puts("\n");
+		firstNode = firstNode->next;
+		count++;
+	}
+
+	return (count);
+}
+
+/**
+ * removeNodeAtIndex - Deletes a node at the given index
+ * @head: Address of the pointer to the first node
+ * @index: Index of the node to delete
+ *
+ * Return: 1 on success, 0 on failure
+ */
