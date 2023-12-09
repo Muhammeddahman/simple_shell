@@ -148,3 +148,29 @@ int removeNodeAtIndex(list_t **head, unsigned int index)
 	return (0);
 }
 
+/**
+ * freeLinkedList - Frees all nodes of a linked list
+ * @headPointer: Address of the pointer to the head node
+ *
+ * Return: void
+ */
+void freeLinkedList(list_t **headPointer)
+{
+	list_t *node, *nextNode, *head;
+
+	if (!headPointer || !*headPointer)
+		return;
+
+	head = *headPointer;
+	node = head;
+
+	while (node)
+	{
+		nextNode = node->next;
+		free(node->data);
+		free(node);
+		node = nextNode;
+	}
+
+	*headPointer = NULL;
+}
