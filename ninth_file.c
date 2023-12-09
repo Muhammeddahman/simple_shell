@@ -44,3 +44,42 @@ void displayError(info_t *info, char *errorMessage)
 	_displayString(errorMessage);
 }
 
+/**
+ * displayDecimal - Prints a decimal (integer) number (base 10)
+ * @input: The input number
+ * @fd: The file descriptor to write to
+ *
+ * Return: Number of characters printed
+ */
+int displayDecimal(int input, int fd)
+{
+	int (*printChar)(char) = _putChar;
+	int i, count = 0;
+	unsigned int absoluteValue, current;
+
+	if (fd == STDERR_FILENO)
+		printChar = _eputChar;
+	if (input < 0)
+	{
+		absoluteValue = -input;
+		printChar('-');
+		count++;
+	}
+	else
+		absoluteValue = input;
+	current = absoluteValue;
+	for (i = 1000000000; i > 1; i /= 10)
+	{
+		if (absoluteValue / i)
+		{
+			printChar('0' + current / i);
+			count++;
+		}
+		current %= i;
+	}
+	printChar('0' + current);
+	count++;
+
+	return (count);
+}
+
