@@ -112,3 +112,39 @@ size_t printListData(const list_t *firstNode)
  *
  * Return: 1 on success, 0 on failure
  */
+
+int removeNodeAtIndex(list_t **head, unsigned int index)
+{
+	list_t *node, *prevNode;
+	unsigned int i = 0;
+
+	if (!head || !*head)
+		return (0);
+
+	if (!index)
+	{
+		node = *head;
+		*head = (*head)->next;
+		free(node->data);
+		free(node);
+		return (1);
+	}
+
+	node = *head;
+	while (node)
+	{
+		if (i == index)
+		{
+			prevNode->next = node->next;
+			free(node->data);
+			free(node);
+			return (1);
+		}
+		i++;
+		prevNode = node;
+		node = node->next;
+	}
+
+	return (0);
+}
+
