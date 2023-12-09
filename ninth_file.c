@@ -27,3 +27,20 @@ int safeStringToInteger(char *s)
 	return (result);
 }
 
+/**
+ * displayError - Prints an error message
+ * @info: The parameter & return info struct
+ * @errorMessage: String containing specified error type
+ * Return: No return value
+ */
+void displayError(info_t *info, char *errorMessage)
+{
+	_displayString(info->fileName);
+	_displayString(": ");
+	displayDecimal(info->lineCount, STDERR_FILENO);
+	_displayString(": ");
+	_displayString(info->arguments[0]);
+	_displayString(": ");
+	_displayString(errorMessage);
+}
+
