@@ -84,3 +84,23 @@ list_t *appendNode(list_t **head, const char *data, int index)
 	return (newNode);
 }
 
+/**
+ * printListData - Prints only the data element of a list_t linked list
+ * @firstNode: Pointer to the first node
+ *
+ * Return: Size of the list
+ */
+size_t printListData(const list_t *firstNode)
+{
+	size_t count = 0;
+
+	while (firstNode)
+	{
+		_puts(firstNode->data ? firstNode->data : "(nil)");
+		_puts("\n");
+		firstNode = firstNode->next;
+		count++;
+	}
+
+	return (count);
+}
