@@ -89,3 +89,70 @@ ssize_t get_user_input(info_t *info)
 	return (bytes_read); /* Return length of buffer from custom_getline() */
 }
 
+/**
+ * read_buffer - Reads a buffer
+ * @info: Parameter struct
+ * @buf: Buffer
+ * @i: Size
+ *
+ * Return: Bytes read
+ */
+ssize_t read_buffer(info_t *info, char *buf, size_t *i)
+{
+	ssize_t bytes_read = 0;
+
+	if (*i)
+		return (0);
+	bytes_read = read(info->readfd, buf, READ_BUF_SIZE);
+	if (bytes_read >= 0)
+		*i = bytes_read;
+	return (bytes_read);
+}
+
+/**
+ * custom_getline - Gets the next line of input from STDIN
+ * @info: Parameter struct
+ * @ptr: Address of pointer to buffer, preallocated or NULL
+ * @length: Size of preallocated ptr buffer if not NULL
+ *
+ * Return: Bytes read
+ */
+int custom_getline(info_t *info, char **ptr, size_t *length)
+{
+	static char buf[READ_BUF_SIZE];
+	static size_t i, len;
+	size_t k;
+	ssize_t bytes_read = 0, total_bytes = 0;
+	char *p = NULL, *new_p = NULL, *c;
+
+	p = *ptr;
+	if (p && length)
+		total_bytes = *length;
+	if (i == len)
+		i = len = 0;
+
+	bytes_read = read_buffer(info, buf, &len);
+	if (bytes_read == -1 || (bytes_read == 0 && len == 0))
+		return (-1);
+
+	c = _strchr(buf + i, '\n');
+	k = c ? 1 + (unsigned int)(c - buf) : len;
+	new_p = _realloc(p, total_bytes, total_bytes ? total_bytes + k : k + 1);
+	if (!new_p) /* MALLOC FAILURE! */
+		return (p ? free(p), -1 : -1);
+
+	if (total_bytes)
+		_strncat(new_p, buf + i, k - i);
+	else
+		_strncpy(new_p, buf + i, k - i + 1);
+
+	total_bytes += k - i;
+	i = k;
+	p = new_p;
+
+	if (length)
+		*length = total_bytes;
+	*ptr = p;
+	return (total_bytes);
+}
+
