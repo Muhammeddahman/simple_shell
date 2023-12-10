@@ -102,3 +102,8 @@ int renumberHistoryList(info_t *info)
 
 	return (info->histcount = i);
 }
+
+
+
+
+
