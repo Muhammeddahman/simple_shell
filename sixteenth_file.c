@@ -59,3 +59,25 @@ int writeHistoryFile(info_t *info)
 	return (1);
 }
 
+/**
+ * buildHistoryList - Adds entry to a history linked list
+ * @info: Structure containing potential arguments
+ * @command: Command string to be added to the history
+ * @linecount: The history linecount, histcount
+ *
+ * Return: Always 0
+ */
+int buildHistoryList(info_t *info, char *command, int linecount)
+{
+	list_t *node = NULL;
+
+	if (info->history)
+		node = info->history;
+
+	addNodeEnd(&node, command, linecount);
+
+	if (!info->history)
+		info->history = node;
+
+	return (0);
+}
