@@ -81,3 +81,24 @@ int buildHistoryList(info_t *info, char *command, int linecount)
 
 	return (0);
 }
+
+
+/**
+ * renumberHistoryList - Renumbers the history linked list after changes
+ * @info: Structure containing potential arguments
+ *
+ * Return: The new histcount
+ */
+int renumberHistoryList(info_t *info)
+{
+	list_t *node = info->history;
+	int i = 0;
+
+	while (node)
+	{
+		node->num = i++;
+		node = node->next;
+	}
+
+	return (info->histcount = i);
+}
