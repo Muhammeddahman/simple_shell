@@ -44,3 +44,48 @@ ssize_t buffer_input(info_t *info, char **buf, size_t *len)
 	return (bytes_read);
 }
 
+/**
+ * get_user_input - Gets a line minus the newline
+ * @info: Parameter struct
+ *
+ * Return: Bytes read
+ */
+ssize_t get_user_input(info_t *info)
+{
+	static char *buf; /* The ';' command chain buffer */
+	static size_t i, j, len;
+	ssize_t bytes_read = 0;
+	char **buf_p = &(info->arg), *p;
+
+	_putchar(BUF_FLUSH);
+	bytes_read = buffer_input(info, &buf, &len);
+	if (bytes_read == -1) /* EOF */
+		(return -1);
+	if (len) /* We have commands left in the chain buffer */
+	{
+		j = i; /* Init new iterator to current buf position */
+		p = buf + i; /* Get pointer for return */
+
+		check_command_chain(info, buf, &j, i, len);
+		while (j < len) /* Iterate to semicolon or end */
+		{
+			if (is_command_chain(info, buf, &j))
+				break;
+			j++;
+		}
+
+		i = j + 1; /* Increment past nulled ';'' */
+		if (i >= len) /* Reached end of buffer? */
+		{
+			i = len = 0; /* Reset position and length */
+			info->cmd_buf_type = CMD_NORMAL;
+		}
+
+		*buf_p = p; /* Pass back pointer to current command position */
+		return (_strlen(p)); /* Return length of current command */
+	}
+
+	*buf_p = buf; /* Else not a chain, pass back buffer from custom_getline() */
+	return (bytes_read); /* Return length of buffer from custom_getline() */
+}
+
