@@ -156,3 +156,15 @@ int custom_getline(info_t *info, char **ptr, size_t *length)
 	return (total_bytes);
 }
 
+/**
+ * sigint_handler - Blocks ctrl-C
+ * @sig_num: The signal number
+ *
+ * Return: Void
+ */
+void sigint_handler(__attribute__((unused))int sig_num)
+{
+	_puts("\n");
+	_puts("$ ");
+	_putchar(BUF_FLUSH);
+}
