@@ -46,8 +46,8 @@ int _putToStderr(char c)
 
 /**
  * _putToFD - Writes a character to a given file descriptor
- * @c: The character to print
- * @fd: The file descriptor to write to
+ * @c:		The character to print
+ * @fd:		The file descriptor to write to
  *
  * Return:success 1. On error,-1 is returned, and errno is set appropriately.
  */
@@ -68,3 +68,25 @@ int _putToFD(char c, int fd)
 	return (1);
 }
 
+
+/**
+ * _printToFD - Prints a string to a given file descriptor
+ * @str:	The string to be printed
+ * @fd:		The file descriptor to write to
+ *
+ * Return: The number of characters written
+ */
+int _printToFD(char *str, int fd)
+{
+	int i = 0;
+
+	if (!str)
+		return (0);
+
+	while (*str)
+	{
+		i += _putToFD(*str++, fd);
+	}
+
+	return (i);
+}
