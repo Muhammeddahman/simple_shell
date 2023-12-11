@@ -139,3 +139,16 @@ int replaceVariables(info_t *info)
 	return (0);
 }
 
+/**
+ * replaceString - Replaces a string
+ * @old: Address of the old string
+ * @new: New string
+ *
+ * Return: 1 if replaced, 0 otherwise
+ */
+int replaceString(char **old, char *new)
+{
+	free(*old);
+	*old = new;
+	return (1);
+}
