@@ -82,3 +82,19 @@ int _customCd(info_t *info)
 	return (0);
 }
 
+/**
+ * _customHelp - Displays help information.
+ * @info: Structure containing potential arguments.
+ *
+ * Return: Always 0.
+ */
+int _customHelp(info_t *info)
+{
+	char **arguments;
+
+	arguments = info->argv;
+	_puts("help call works. Function not yet implemented \n");
+	if (0)
+		_puts(*arguments); /* Temporary att_unused workaround */
+	return (0);
+}
