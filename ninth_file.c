@@ -36,7 +36,7 @@ int safeStringToInteger(char *s)
 void displayError(info_t *info, char *errorMessage)
 {
 	splitString(info->fileName);
-	_displayString(": ");
+	splitString(": ");
 	displayDecimal(info->lineCount, STDERR_FILENO);
 	_displayString(": ");
 	_displayString(info->arguments[0]);
@@ -53,12 +53,12 @@ void displayError(info_t *info, char *errorMessage)
  */
 int displayDecimal(int input, int fd)
 {
-	int (*printChar)(char) = putChar;
+	int (*printChar)(char) = putchar;
 	int i, count = 0;
 	unsigned int absoluteValue, current;
 
 	if (fd == STDERR_FILENO)
-		printChar = eputChar;
+		printChar = putchar;
 	if (input < 0)
 	{
 		absoluteValue = -input;
