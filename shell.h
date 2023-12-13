@@ -166,7 +166,7 @@ int my_free(void **);
 
 /* eightth_file.c */
 int isInteractiveMode(info_t *);
-int is_delim(char, char *);
+int isDelimiter(char, char *);
 int isAlphabetic(int);
 int convertStringToInt(char *);
 
