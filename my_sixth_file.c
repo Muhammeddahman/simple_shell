@@ -1,3 +1,5 @@
+#include "shell.h"
+
 /**
  * **splitString - Splits a string into words. Repeat delimiters are ignored.
  * @String: The input string.
