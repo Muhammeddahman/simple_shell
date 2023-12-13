@@ -8,8 +8,6 @@
  */
 int isInteractiveMode(info_t *info)
 {
-	int readfd;
-
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
