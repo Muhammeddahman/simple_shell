@@ -1,9 +1,10 @@
 #include "shell.h"
 
 /**
- * safeStringToInteger - Converts a string to an integer with error handling
- * @s: The string to be converted
- * Return: The converted number if successful, -1 on error
+ * safeStringToInteger - converts a string to an integer
+ * @s: the string to be converted
+ * Return: 0 if no numbers in string, converted number otherwise
+ *       -1 on error
  */
 int safeStringToInteger(char *s)
 {
@@ -11,8 +12,8 @@ int safeStringToInteger(char *s)
 	unsigned long int result = 0;
 
 	if (*s == '+')
-		s++;  /* TODO: Investigate the impact on main returning 255 */
-	for (i = 0; s[i] != '\0'; i++)
+		s++;  /* TODO: why does this make main return 255? */
+	for (i = 0;  s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
 		{
@@ -28,68 +29,69 @@ int safeStringToInteger(char *s)
 }
 
 /**
- * displayError - Prints an error message
- * @info: The parameter & return info struct
- * @errorMessage: String containing specified error type
- * Return: No return value
+ * displayError - prints an error message
+ * @info: the parameter & return info struct
+ * @estr: string containing specified error type
+ * Return: 0 if no numbers in string, converted number otherwise
+ *        -1 on error
  */
-void displayError(info_t *info, char *errorMessage)
+void displayError(info_t *info, char *estr)
 {
-	splitString(info->fileName);
-	splitString(": ");
-	displayDecimal(info->lineCount, STDERR_FILENO);
-	_displayString(": ");
-	_displayString(info->arguments[0]);
-	_displayString(": ");
-	_displayString(errorMessage);
+	_eputs(info->fname);
+	_eputs(": ");
+	print_d(info->line_count, STDERR_FILENO);
+	_eputs(": ");
+	_eputs(info->argv[0]);
+	_eputs(": ");
+	_eputs(estr);
 }
 
 /**
- * displayDecimal - Prints a decimal (integer) number (base 10)
- * @input: The input number
- * @fd: The file descriptor to write to
+ * displayDecimal - function prints a decimal (integer) number (base 10)
+ * @input: the input
+ * @fd: the filedescriptor to write to
  *
- * Return: Number of characters printed
+ * Return: number of characters printed
  */
 int displayDecimal(int input, int fd)
 {
-	int (*printChar)(char) = putchar;
+	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
-	unsigned int absoluteValue, current;
+	unsigned int _abs_, current;
 
 	if (fd == STDERR_FILENO)
-		printChar = putchar;
+		__putchar = _eputchar;
 	if (input < 0)
 	{
-		absoluteValue = -input;
-		printChar('-');
+		_abs_ = -input;
+		__putchar('-');
 		count++;
 	}
 	else
-		absoluteValue = input;
-	current = absoluteValue;
+		_abs_ = input;
+	current = _abs_;
 	for (i = 1000000000; i > 1; i /= 10)
 	{
-		if (absoluteValue / i)
+		if (_abs_ / i)
 		{
-			printChar('0' + current / i);
+			__putchar('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
-	printChar('0' + current);
+	__putchar('0' + current);
 	count++;
 
 	return (count);
 }
 
 /**
- * convertToBase - Converter function, a clone of itoa
- * @num: Number
- * @base: Base
- * @flags: Argument flags
+ * convertToBase - converter function, a clone of itoa
+ * @num: number
+ * @base: base
+ * @flags: argument flags
  *
- * Return: String
+ * Return: string
  */
 char *convertToBase(long int num, int base, int flags)
 {
@@ -120,10 +122,10 @@ char *convertToBase(long int num, int base, int flags)
 }
 
 /**
- * eliminateComments - Function replaces the first instance of '#' with '\0'
- * @buf: Address of the string to modify
+ * eliminateComments - function replaces first instance of '#' with '\0'
+ * @buf: address of the string to modify
  *
- * Return: Always 0
+ * Return: Always 0;
  */
 void eliminateComments(char *buf)
 {
@@ -136,3 +138,4 @@ void eliminateComments(char *buf)
 			break;
 		}
 }
+
