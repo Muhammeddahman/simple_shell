@@ -9,19 +9,19 @@
  */
 char **custom_split_string(char *str, char delim)
 {
-	int num_substrings = count_substrings(str, delim);
-	char **substrings;
+        int num_substrings = count_substrings(str, delim);
+        char **substrings;
 
-	if (num_substrings == 0)
-		return (NULL);
+        if (num_substrings == 0)
+                return (NULL);
 
-	substrings = malloc((num_substrings + 1) * sizeof(char *));
-	if (!substrings)
-		return (NULL);
+        substrings = malloc((num_substrings + 1) * sizeof(char *));
+        if (!substrings)
+                return (NULL);
 
-	split_and_store(substrings, str, delim);
+        split_and_store(substrings, str, delim);
 
-	return (substrings);
+        return (substrings);
 }
 
 /**
@@ -33,20 +33,20 @@ char **custom_split_string(char *str, char delim)
  */
 int count_substrings(char *str, char delim)
 {
-	int count = 0;
-	int i;
+        int count = 0;
+        int i;
 
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] == delim)
-		{
-			count++;
-			while (str[i + 1] == delim)
-				i++; /* Skip consecutive delimiters */
-		}
-	}
+        for (i = 0; str[i] != '\0'; i++)
+        {
+                if (str[i] == delim)
+                {
+                        count++;
+                        while (str[i + 1] == delim)
+                                i++; /* Skip consecutive delimiters */
+                }
+        }
 
-	return (count + 1); /* Add 1 for the last substring */
+        return (count + 1); /* Add 1 for the last substring */
 }
 
 /**
@@ -57,29 +57,29 @@ int count_substrings(char *str, char delim)
  */
 void split_and_store(char **substrings, char *str, char delim)
 {
-	int i, j, k;
+        int i, j, k;
 
-	for (i = 0, j = 0; str[i] != '\0'; i++)
-	{
-		while (str[i] == delim)
-			i++;
+        for (i = 0, j = 0; str[i] != '\0'; i++)
+        {
+                while (str[i] == delim)
+                        i++;
 
-		k = 0;
-		while (str[i + k] != delim && str[i + k] != '\0')
-			k++;
+                k = 0;
+                while (str[i + k] != delim && str[i + k] != '\0')
+                        k++;
 
-		substrings[j] = substring_copy(str + i, k);
-		if (!substrings[j])
-		{
-			free_substrings(substrings, j);
-			return;
-		}
+                substrings[j] = substring_copy(str + i, k);
+                if (!substrings[j])
+                {
+                        free_substrings(substrings, j);
+                        return;
+                }
 
-		i += k;
-		j++;
-	}
+                i += k;
+                j++;
+        }
 
-	substrings[j] = NULL;
+        substrings[j] = NULL;
 }
 
 /**
@@ -91,18 +91,17 @@ void split_and_store(char **substrings, char *str, char delim)
  */
 char *substring_copy(char *start, int length)
 {
-	char *substring = malloc((length + 1) * sizeof(char));
+        char *substring = malloc((length + 1) * sizeof(char));
 
-	if (!substring)
-		return (NULL);
+        if (!substring)
+                return (NULL);
 
-	for (int i = 0; i < length; i++)
-		substring[i] = start[i];
+        for (int i = 0; i < length; i++)
+                substring[i] = start[i];
 
-	substring[length] = '\0';
-	return (substring);
+        substring[length] = '\0';
+        return (substring);
 }
-
 
 /**
  * free_substrings - Frees the memory allocated for an array of strings
@@ -111,8 +110,9 @@ char *substring_copy(char *start, int length)
  */
 void free_substrings(char **substrings, int count)
 {
-	for (int i = 0; i < count; i++)
-		free(substrings[i]);
+        for (int i = 0; i < count; i++)
+                free(substrings[i]);
 
-	free(substrings);
+        free(substrings);
 }
+
