@@ -58,6 +58,54 @@ int writeHistoryFile(info_t *info)
 
 	return (1);
 }
+/**
+ * loadHistory - Reads history from file.
+ * @shell_info: The parameter struct.
+ *
+ * Return: histcount on success, 0 otherwise.
+ */
+int loadHistory(info_t *shell_info)
+{
+	int i, last = 0, linecount = 0;
+	ssize_t fd, rdlen, fsize = 0;
+	struct stat st;
+	char *buf = NULL, *filename = getHistoryFile(shell_info);
+
+	if (!filename)
+		return (0);
+
+	fd = open(filename, O_RDONLY);
+	free(filename);
+	if (fd == -1)
+		return (0);
+	if (!fstat(fd, &st))
+		fsize = st.st_size;
+	if (fsize < 2)
+		return (0);
+	buf = malloc(sizeof(char) * (fsize + 1));
+	if (!buf)
+		return (0);
+	rdlen = read(fd, buf, fsize);
+	buf[fsize] = 0;
+	if (rdlen <= 0)
+		return (free(buf), 0);
+	close(fd);
+	for (i = 0; i < fsize; i++)
+		if (buf[i] == '\n')
+		{
+			buf[i] = 0;
+			buildHistoryList(shell_info, buf + last, linecount++);
+			last = i + 1;
+		}
+	if (last != i)
+		buildHistoryList(shell_info, buf + last, linecount++);
+	free(buf);
+	shell_info->histcount = linecount;
+	while (shell_info->histcount-- >= HIST_MAX)
+		deleteNodeAtIndex(&(shell_info->history), 0);
+	renumberHistory(shell_info);
+	return (shell_info->histcount);
+}
 
 /**
  * buildHistoryList - Adds entry to a history linked list
