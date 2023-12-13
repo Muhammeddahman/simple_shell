@@ -1,4 +1,5 @@
 #include "shell.h"
+int is_delim(char c, char *delimiters);
 
 /**
  * **splitString - splits a string into words. Repeat delimiters are ignored
