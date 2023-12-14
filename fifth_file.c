@@ -1,5 +1,9 @@
 #include "shell.h"
-
+int main()
+{
+	printf("Hello, world!\n");
+	return (0);
+}
 /**
  * custom_copy_n_string - Copies a source string
  *			to a destination buffer with a limit.
