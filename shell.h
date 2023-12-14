@@ -110,7 +110,6 @@ typedef struct builtin
 	int (*func)(info_t *);
 } builtin_table;
 
-
 /* Function declarations (with changed comments) */
 
 /* my_fourteenth_file.c */
@@ -228,7 +227,7 @@ list_t *delete_node_at_index(list_t *, char *, char);
 ssize_t free_list(list_t *, list_t *);
 
 /* twentieth_file.c */
-int isDelimiter(char, char *);
+int isDelimiter(info_t *, char *, size_t *);
 void checkChain(info_t *, char *, size_t *, size_t, size_t);
 int replaceAlias(info_t *);
 int replaceVariables(info_t *);
