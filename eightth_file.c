@@ -1,5 +1,9 @@
 #include "shell.h"
-
+int main()
+{
+	printf("Hello, world!\n");
+	return (0);
+}
 /**
  * isInteractiveMode - Returns true if the shell is in interactive mode
  * @info: Pointer to the struct address
