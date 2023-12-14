@@ -119,9 +119,9 @@ void findCommand(info_t *);
 void forkCommand(info_t *);
 
 /* seventh_file.c */
-int isExecutableCommand(info_t *, char *);
-char *duplicateCharacters(char *, int, int);
-char *findCmdInPath(info_t *, char *, char *);
+int is_cmd(info_t *, char *);
+char *dup_chars(char *, int, int);
+char *find_path(info_t *, char *, char *);
 
 /* tenth_file.c */
 int primaryFunction(int, char **);
