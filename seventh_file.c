@@ -57,7 +57,7 @@ char *findCmdInPath(info_t *info, char *pathStr, char *cmd)
 
 	if (!pathStr)
 		return (NULL);
-	if ((strlen(cmd) > 2) && startswith(cmd, "./"))
+	if ((strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
 		if (isExecutableCommand(info, cmd))
 			return (cmd);
