@@ -1,5 +1,9 @@
 #include "shell.h"
-
+int main()
+{
+	printf("Hello, world!\n");
+	return (0);
+}
 /**
  * my_memset - Fills a memory region with a specific byte.
  *
