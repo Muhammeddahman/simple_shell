@@ -1,5 +1,10 @@
 #include "shell.h"
 
+int main()
+{
+	printf("Hello, world!\n");
+	return (0);
+}
 /**
  * custom_strlen - Calculate the length of a string.
  *
