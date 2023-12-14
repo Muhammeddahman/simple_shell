@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * isDelimiter-Tests if the current character in the buffer is chain delimiter
+ * isChain -Tests if the current character in the buffer is chain delimiter
  * @info: The parameter struct
  * @buf: The character buffer
  * @p: Address of the current position in buf
  *
  * Return: 1 if chain delimiter, 0 otherwise
  */
-int isDelimiter(info_t *info, char *buf, size_t *p)
+int isChain(info_t *info, char *buf, size_t *p)
 {
 	size_t j = *p;
 
